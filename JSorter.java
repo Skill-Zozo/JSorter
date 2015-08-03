@@ -91,8 +91,25 @@ public class JSorter {
 	
 	private static void undo() {
 		//read movements from history and undo
+		File f = new File(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+		if(!f.exists()) 
+			throw new FileNotFoundException();
+		FileReader fr = new FileReader(f);
+		BufferedReader br = new BufferedReader(fr);
+		for(String line = br.readLine(); line != null; line = br.readline()) {
+			if(!line.contains("->")) continue;
+			String[] places = line.split("->");
+			Files.moves(places[1], places[0]);
+		}
+		System.out.println("Undo Complete. Removing directories now.");
+		recursiveRemove();
 	}
 
+	private static void recursiveRemove() {
+		File src = path.toAbsolutePath();
+		//write
+	}
+	
 	private static void makeDirectories(String directory) throws IOException {	//make parent directories
 		FileSystem fs = FileSystems.getDefault();
 		Path tmp = fs.getPath(directory);
@@ -102,7 +119,7 @@ public class JSorter {
 
 	private static String[] split(String filename) {
 		/* 
-		 * returs an array with the first element as the 
+		 * returns an array with the first element as the 
 		 * actual name and the second element being the
 		 * extension
 		 */

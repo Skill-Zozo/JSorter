@@ -72,8 +72,25 @@ public class JSorter {
 				String dest = path.toAbsolutePath()+File.separator+st.get(filepath)+File.separator	+f.getName();
 				Path destination = new File(dest).toPath();
 				Files.move(src, destination);
+				logMovement(src, destination);
 			}
 		}
+	}
+	
+	private static void logMovement(String from, String to) {
+		File log = new File(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+		if(!log.exists()) {
+			Files.create(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+		}
+		FileWriter fw = new FileWriter(log, "true");
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(from+"->"+to);
+		bw.close();
+		fw.close();
+	}
+	
+	private static void undo() {
+		//read movements from history and undo
 	}
 
 	private static void makeDirectories(String directory) throws IOException {	//make parent directories
@@ -81,7 +98,7 @@ public class JSorter {
 		Path tmp = fs.getPath(directory);
 		if(!Files.exists(tmp)) 
 			Files.createDirectories(tmp);
-}
+	}
 
 	private static String[] split(String filename) {
 		/* 
