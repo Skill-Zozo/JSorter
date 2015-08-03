@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
@@ -64,7 +66,7 @@ public class JSorter {
 	private static void sort(File file) throws IOException {	//sort out the files
 		File[] subfiles = file.listFiles();
 		for(File f : subfiles) {
-			if (f.isFile()) {
+			if (f.isFile() &&  f.toString().toLowerCase() != "JSorter_history.txt") {
 				String[] fileProperties = split(f.getName());
 				String filepath = fileProperties[1];
 				Path src = Paths.get(f.toURI());
@@ -72,19 +74,19 @@ public class JSorter {
 				String dest = path.toAbsolutePath()+File.separator+st.get(filepath)+File.separator	+f.getName();
 				Path destination = new File(dest).toPath();
 				Files.move(src, destination);
-				logMovement(src, destination);
+				logMovement(src.toAbsolutePath().toString(), dest);
 			}
 		}
 	}
 	
-	private static void logMovement(String from, String to) {
+	private static void logMovement(String from, String to) throws IOException {
 		File log = new File(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
 		if(!log.exists()) {
-			Files.create(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+			log.createNewFile();
 		}
-		FileWriter fw = new FileWriter(log, "true");
+		FileWriter fw = new FileWriter(log, true);
 		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write(from+"->"+to);
+		bw.write(from+"->"+to+"\n");
 		bw.close();
 		fw.close();
 	}

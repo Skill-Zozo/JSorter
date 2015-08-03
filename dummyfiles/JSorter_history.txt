@@ -1,0 +1,10 @@
+/home/osboxes/JSorter/dummyfiles/steven.mp4->/home/osboxes/JSorter/dummyfiles/Videos//steven.mp4
+/home/osboxes/JSorter/dummyfiles/cloe.rtf->/home/osboxes/JSorter/dummyfiles/Documents/Writing/cloe.rtf
+/home/osboxes/JSorter/dummyfiles/zippy.zip->/home/osboxes/JSorter/dummyfiles/Archives/zippy.zip
+/home/osboxes/JSorter/dummyfiles/people.pdf->/home/osboxes/JSorter/dummyfiles/Documents/PDF/people.pdf
+/home/osboxes/JSorter/dummyfiles/madam.mp3->/home/osboxes/JSorter/dummyfiles/Audio//madam.mp3
+/home/osboxes/JSorter/dummyfiles/asanda.avi->/home/osboxes/JSorter/dummyfiles/Videos//asanda.avi
+/home/osboxes/JSorter/dummyfiles/folks.docx->/home/osboxes/JSorter/dummyfiles/Documents/Writing/folks.docx
+/home/osboxes/JSorter/dummyfiles/derek.avi->/home/osboxes/JSorter/dummyfiles/Videos//derek.avi
+/home/osboxes/JSorter/dummyfiles/sili.xml->/home/osboxes/JSorter/dummyfiles/XML/sili.xml
+/home/osboxes/JSorter/dummyfiles/tc.tar.gz->/home/osboxes/JSorter/dummyfiles/Archives/tc.tar.gz
