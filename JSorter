@@ -1,0 +1,7 @@
+import javafx.application.Application;
+public class JSortApp extends Application
+{
+	public static void main(String[] args) {
+		
+	}
+}

@@ -10,8 +10,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javafx.application.Application;
 
-public class JSorter {
+public class JSorter extends Application{
 	
 	static ST<String, String> st = new ST<String, String>();
 	static Path path;
