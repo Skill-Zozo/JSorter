@@ -1,4 +1,0 @@
-.pane{
-    -fx-background-image: url("backgrounder.png");
-    -fx-background-position: center center;
-}

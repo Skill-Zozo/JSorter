@@ -72,7 +72,7 @@ public class JSorter {
 		fr.close();
 	}
  
-	public void sort(File file) throws IOException {	//sort out the files
+	private void sort(File file) throws IOException {	//sort out the files
 		File[] subfiles = file.listFiles();
 		for(File f : subfiles) {
 			if (f.isFile() &&  f.toString().toLowerCase() != "JSorter_history.txt") {
