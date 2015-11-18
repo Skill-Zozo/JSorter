@@ -1,13 +1,17 @@
 import javafx.application.Application;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.DirectoryChooser;
 import java.io.IOException;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.io.File;
+import java.util.Optional;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
@@ -44,9 +48,10 @@ public class JSortApp extends Application
 		});
 		HBox hbox = new HBox();
 		hbox.setSpacing(10);
+		//sort buttons
 		Button sort = new Button("sort");
 		sort.setMaxSize(70, 70);
-		sort.setStyle("-fx-font-size:12pt; -fx-font-weight:bold; -fx-base: #d3d3d3; -fx-font-family:Monaco, 'Courier New', MONOSPACE");
+		setButtonStyle(sort);
 		sort.setOnAction( new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(final ActionEvent e) {
@@ -79,21 +84,75 @@ public class JSortApp extends Application
 		directoryFlag.setAlignment(Pos.BOTTOM_LEFT);
 		directoryFlag.setMaxWidth(200);
 		deleteDuplicates.setMaxWidth(200);
-		VBox root = new VBox();
-        root.setAlignment(Pos.CENTER);
-        root.setSpacing(20);
-        root.getChildren().addAll(hbox, directoryFlag, deleteDuplicates);
-        StackPane layout = new StackPane();
-        layout.getChildren().add(root);
-        Scene scene = new Scene(layout, 500, 500);
-        
-        layout.getStylesheets().add("style.css");
-       	layout.getStyleClass().add("pane");
+		VBox center = new VBox();
+		center.setAlignment(Pos.CENTER);
+        center.setSpacing(20);
+        center.getChildren().addAll(hbox, directoryFlag, deleteDuplicates);
+        VBox layout = new VBox();
+        StackPane sp = new StackPane();
+		//undo button	
+		VBox undoBox = new VBox();
+		undoBox.setAlignment(Pos.BOTTOM_RIGHT);
+		Button undo = new Button("undo");
+		setButtonStyle(undo);
+		undoBox.getChildren().add(undo);
+		undo.setOnAction( new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(final ActionEvent e) {
+				if(jsort == null) {
+			    	Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Error");
+					alert.setHeaderText("No directory selected");
+					alert.setContentText("Please choose directory to undo.");
+					alert.showAndWait();
+			    } else {
+			    	try {
+			    		Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Confirm Undo");
+						alert.setHeaderText("Undo");
+						alert.setContentText("Are you sure you want to undo?");
+						ButtonType yes = new ButtonType("Yes");
+						ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+						alert.getButtonTypes().setAll(yes, cancel);
+						Optional<ButtonType> result = alert.showAndWait();
+						if(result.get() == yes) {
+							jsort.undo();
+						} 
+			    	} catch (Exception ex) {
+			    		System.out.println("sihlulekile");
+			    	}
+			    }
+		    	
+			}
+		});
+		HBox hb = new HBox();
+		hb.setSpacing(100);
+		//add filters
+		VBox addFilter = new VBox();
+		Button add = new Button("add filter");
+		addFilter.setAlignment(Pos.BOTTOM_LEFT);
+		addFilter.getChildren().add(add);
+		setButtonStyle(add);
+		hb.getChildren().addAll(addFilter,undoBox);
+		hb.setAlignment(Pos.BOTTOM_CENTER);
+        layout.getChildren().addAll(center, hb);
+        Scene scene = new Scene(sp, 500, 500);
+        layout.setSpacing(100);
+        layout.setAlignment(Pos.CENTER);
+        layout.setMargin(undoBox, new Insets(8,8,8,8));
+        layout.setMargin(addFilter, new Insets(8,8,8,8));
+        sp.getChildren().add(layout);
+        sp.getStylesheets().add("style.css");
+       	sp.getStyleClass().add("pane");
         scene.getStylesheets().addAll(
 				JSortApp.class.getResource("style.css").toExternalForm());
 		stage.setScene(scene);
         stage.show();
 	} 	
+	
+	public void setButtonStyle(Button b) {
+		b.setStyle("-fx-font-size:12pt; -fx-font-weight:bold; -fx-base: #d3d3d3; -fx-font-family:Monaco, 'Courier New', MONOSPACE");
+	}
 	
 	public static void main(String[] args) throws IOException{
 		launch(args);
