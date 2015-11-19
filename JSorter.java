@@ -127,7 +127,6 @@ public class JSorter {
 			File src = new File(places[1]);
 			File dest = new File(places[0]);
 			if(src.exists() == false || dest.exists() == true) continue; 
-			System.out.println("Undid");
 			Files.move (new File(places[1]).toPath(), new File(places[0]).toPath());
 		}
 		System.out.println("Undo Complete. Removing directories now.");
