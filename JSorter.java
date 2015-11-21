@@ -75,7 +75,8 @@ public class JSorter {
 	public void sort(File file) throws IOException {	//sort out the files
 		File[] subfiles = file.listFiles();
 		for(File f : subfiles) {
-			if (f.isFile() &&  f.toString().toLowerCase() != "JSorter_history.txt") {
+			boolean isDotFile = f.getName().charAt(0) == '.';
+			if (f.isFile() && !isDotFile) {
 				String[] fileProperties = split(f.getName());
 				if(fileProperties == null) {
 					
@@ -100,7 +101,7 @@ public class JSorter {
 	}
 	
 	public void logMovement(String from, String to) throws IOException {
-		File log = new File(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+		File log = new File(path.toAbsolutePath()+File.separator+".jsorthistory");
 		if(!log.exists()) {
 			log.createNewFile();
 		}
@@ -113,7 +114,7 @@ public class JSorter {
 	
 	public void undo() throws FileNotFoundException, IOException {
 		//read movements from history and undo
-		File f = new File(path.toAbsolutePath()+File.separator+"JSorter_history.txt");
+		File f = new File(path.toAbsolutePath()+File.separator+".jsorthistory");
 		if(!f.exists()) {
 			System.out.println("No previous history of JSorter.");
 			throw new FileNotFoundException();
