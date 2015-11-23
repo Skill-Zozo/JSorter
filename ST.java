@@ -65,7 +65,7 @@ public class ST<Item extends Comparable<Item>, Value> implements Iterable<Item> 
 		return null;
 	} 
 	
-	public boolean contains(Item item) {
+	public boolean containsItem(Item item) {
 		for(Node x = root; x != null; x = x.next) {
 			if(x.item.equals(item)) return true;
 		}
