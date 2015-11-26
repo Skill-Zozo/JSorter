@@ -3,10 +3,6 @@
 # JSorter
   JSorter sorts out files into folders based on the extensions of the files
 
-Clarification
-=============
-Take the make-app-add-undo branch as the master branch.
-
 Install
 =========
 1. Requires jre1.8 or later versions of java.
