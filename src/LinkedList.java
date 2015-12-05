@@ -12,6 +12,13 @@ public class LinkedList<Item> implements Iterable<Item>{
 		Node next;
 	}
 	
+	public boolean contains(Item item){
+		for(Node n = first; n != null; n = n.next) {
+			if(n.item.equals(item)) return true;
+		}
+		return false;
+	} 
+	
 	public boolean isEmpty() {
 		return first == null && last == null;
 	}
@@ -47,6 +54,7 @@ public class LinkedList<Item> implements Iterable<Item>{
 	}
 	
 	public Item getItem(int index) {
+		if(this.isEmpty()) return null;
 		int count = 1;
 		Node indexNode = new Node();
 		indexNode = first;

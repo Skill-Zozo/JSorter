@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 public class JSorter {
 	
 	private ST<String, String> st = new ST<String, String>();
+	private LinkedList<String> directoriesMade = new LinkedList<>();
 	private Path path;
 	static private class NotDirectory extends Exception {
 		/**
@@ -64,6 +65,7 @@ public class JSorter {
 				int breakingpoint = line.indexOf('$');
 				String filetype = line.substring(0, breakingpoint);
 				String path = line.substring(breakingpoint+1, line.length());
+				writeFolderName(path);
 				st.put(filetype, path);
 			}
 		}
@@ -86,9 +88,13 @@ public class JSorter {
 				String folder = "";
 				if(!st.containsItem(filepath)) {
 					folder = "Other" + File.separator + filepath;
+					if(!directoriesMade.contains(filepath)) {
+						directoriesMade.add(filepath);
+					}
 				} 
 				else {
 					folder = st.get(filepath);
+					writeFolderName(folder);
 				}
 				makeDirectories(path.toAbsolutePath()+File.separator+ folder);
 				String dest = path.toAbsolutePath()+File.separator+folder+File.separator+f.getName();
@@ -98,6 +104,29 @@ public class JSorter {
 				logMovement(src.toAbsolutePath().toString(), dest);
 			}
 		}
+		logFilesMade();
+	}
+	
+	public void logFilesMade() throws IOException {
+		File log = new File(path.toAbsolutePath()+File.separator+".jsorthistory");
+		if(!log.exists()) {
+			log.createNewFile();
+		}
+		FileWriter fw = new FileWriter(log, true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		for(int i = 0; i < directoriesMade.getSize(); i++) {
+			String dir = directoriesMade.getItem(i);
+			bw.write("[folder]" + dir);
+			bw.newLine();
+		}
+		bw.close();
+		fw.close();
+	}
+	
+	private void writeFolderName(String folder) {
+		String[] folders = folder.split(File.separator);
+		if(!directoriesMade.contains(folders[folders.length-1]))
+			directoriesMade.add(folders[folders.length-1]);
 	}
 	
 	public void logMovement(String from, String to) throws IOException {
@@ -117,11 +146,15 @@ public class JSorter {
 		File f = new File(path.toAbsolutePath()+File.separator+".jsorthistory");
 		if(!f.exists()) {
 			System.out.println("No previous history of JSorter.");
-			throw new FileNotFoundException();
+			return;
 		}
 		FileReader fr = new FileReader(f);
 		BufferedReader br = new BufferedReader(fr);
 		for(String line = br.readLine(); line != null; line = br.readLine()) {
+			if(line.startsWith("[folder]")) {
+				directoriesMade.add(line.substring(8,line.length()));
+				continue;
+			}
 			if(!line.contains("->")) continue;
 			String[] places = line.split("->");
 			if(new File(places[0]).exists()) continue;
@@ -141,7 +174,8 @@ public class JSorter {
 		File[] dirs = file.listFiles();
 		for(File f : dirs) {
 			if(f.exists() && f.isDirectory()) {
-				if(f.length() == 0) { //file is not empty
+				boolean knownEmptyDirectory = directoriesMade.contains(f.getName());
+				if(f.length() == 0  && knownEmptyDirectory) { //file is not empty
 					removeFile(f);
 				} else {
 					removeEmptyDirectories(f.toString());
@@ -158,11 +192,15 @@ public class JSorter {
 		}
 	}
 	
-	private static void makeDirectories(String directory) throws IOException {	//make parent directories
+	private void makeDirectories(String directory) throws IOException {	//make parent directories
 		FileSystem fs = FileSystems.getDefault();
 		Path tmp = fs.getPath(directory);
-		if(!Files.exists(tmp)) 
+		if(!Files.exists(tmp)) {
 			Files.createDirectories(tmp);
+			if(!directoriesMade.contains(directory)) {
+				directoriesMade.add(directory);
+			}
+		}
 	}
 
 		/** 

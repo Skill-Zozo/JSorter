@@ -38,7 +38,7 @@ public class JSortApp extends Application
 	private Stage currentStage;
 	
 	public HBox setupSortButtons() {
-		Button chooseFile = new Button("choose file to be sorted");
+		Button chooseFile = new Button("choose directory to be sorted");
 		chooseFile.setStyle("-fx-font-size:14pt; -fx-font-weight:bold; -fx-base: #d3d3d3; -fx-font-family:Monaco, 'Courier New', MONOSPACE");
 		chooseFile.setOnAction( new EventHandler<ActionEvent>() {
 			@Override
@@ -49,10 +49,10 @@ public class JSortApp extends Application
 			            directoryChooser.showDialog(currentStage);
 			    if (selectedDirectory != null) {
 			        selectedDirectory.getAbsolutePath();
-			    }
-			    sortDir = selectedDirectory;
-			    jsort = new JSorter(sortDir.getAbsolutePath().toString());
-			    chooseFile.setText(sortDir.getAbsolutePath().toString());
+					sortDir = selectedDirectory;
+					jsort = new JSorter(sortDir.getAbsolutePath().toString());
+					chooseFile.setText(sortDir.getAbsolutePath().toString());
+				}
 			}
 		});
 		HBox hbox = new HBox();
