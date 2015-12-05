@@ -6,8 +6,9 @@
 Install
 =========
 1. Requires jre1.8 or later versions of java.
-2. javac JSortApp.java 
-3. java JSortApp
+2. `ant jar`
+3. java -jar jsorter.jar
+
 
 Use
 ========
