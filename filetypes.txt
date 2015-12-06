@@ -104,3 +104,6 @@ vcf$Contacts
 cer$Certificates
 djvu$Documents/DJVU
 mkv$Movies
+cc$C++
+
+jpg-large$Images/jpg

@@ -219,7 +219,9 @@ public class JSortApp extends Application
     					String finalString = ext + "$" + path;
     					boolean isThere = check(finalString);
     					if(!isThere) {
+    						bw.newLine();
     						bw.append(finalString);
+    						jsort.addDescription(ext, path);
     					}
     					bw.close();
 					} catch (IOException le) {

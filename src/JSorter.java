@@ -141,6 +141,10 @@ public class JSorter {
 		fw.close();
 	}
 	
+	public void addDescription(String filetype, String path) {
+		st.put(filetype, path);
+	}
+	
 	public void undo() throws FileNotFoundException, IOException {
 		//read movements from history and undo
 		File f = new File(path.toAbsolutePath()+File.separator+".jsorthistory");
