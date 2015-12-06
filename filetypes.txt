@@ -105,5 +105,8 @@ cer$Certificates
 djvu$Documents/DJVU
 mkv$Movies
 cc$C++
-
-jpg-large$Images/jpg
+jpg-large$JPG
+class$bin
+java~$temp
+crdownload$Unfinished Downloads
+srt$Subtitles

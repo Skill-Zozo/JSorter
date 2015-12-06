@@ -61,7 +61,8 @@ public class JSorter {
 		FileReader fr = new FileReader(f);
 		BufferedReader br = new BufferedReader(fr);
 		for(String line = br.readLine(); line != null; line = br.readLine()) {
-			if(line != "\n") {
+			line = line.trim();
+			if(line.length() > 0) {
 				int breakingpoint = line.indexOf('$');
 				String filetype = line.substring(0, breakingpoint);
 				String path = line.substring(breakingpoint+1, line.length());

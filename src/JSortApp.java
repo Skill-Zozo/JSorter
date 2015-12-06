@@ -175,7 +175,7 @@ public class JSortApp extends Application
         sp.getStylesheets().add("style.css");
        	sp.getStyleClass().add("pane");
         scene.getStylesheets().addAll(
-				JSortApp.class.getResource("style.css").toExternalForm());
+				getClass().getResource("style.css").toExternalForm());
 		stage.setScene(scene);
         stage.show();
 	} 	
@@ -219,8 +219,8 @@ public class JSortApp extends Application
     					String finalString = ext + "$" + path;
     					boolean isThere = check(finalString);
     					if(!isThere) {
+    						bw.write(finalString);
     						bw.newLine();
-    						bw.append(finalString);
     						jsort.addDescription(ext, path);
     					}
     					bw.close();
