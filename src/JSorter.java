@@ -43,8 +43,8 @@ public class JSorter {
 
 	public static void main(String[] args) throws NotDirectory, IOException {
 		/*
-		 * recieves arg[0] = directory_to_be_sorted
-		 * recieves arg[1] = flag for undo
+		 * receives arg[0] = directory_to_be_sorted
+		 * receives arg[1] = flag for undo
 		 */
 		JSorter jsort = new JSorter(args[0]);
 		jsort.sort(new File(args[0]));
