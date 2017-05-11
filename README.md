@@ -1,4 +1,4 @@
-
+Val show
 
 # JSorter
   JSorter sorts out files into folders based on the extensions of the files
@@ -19,5 +19,5 @@ Use
 
 Coming soon
 ============
-1. Full functionality of the two check boxes. 
+1. Full functionality of the two check boxes.
 2. Recursive sort
